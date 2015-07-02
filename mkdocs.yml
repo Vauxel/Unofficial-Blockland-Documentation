@@ -1,0 +1,9 @@
+site_name: Unofficial Blockland Documentation
+repo_name: GitHub
+repo_url: https://github.com/Vauxel/Unofficial-Blockland-Documentation
+pages:
+- ['index.md', 'Introduction']
+- ['strings.md', 'Strings']
+- ['math.md', 'Math']
+- ['tml.md', 'Resources', "Torque Markup Language"]
+theme: yeti

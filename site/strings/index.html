@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+	<title>Strings - Unofficial Blockland Documentation</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/base.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="..">Unofficial Blockland Documentation</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            <!-- Main navigation -->
+            <ul class="nav navbar-nav">
+            
+            
+                <li >
+                    <a href="..">Introduction</a>
+                </li>
+            
+            
+            
+                <li class="active">
+                    <a href="./">Strings</a>
+                </li>
+            
+            
+            
+                <li >
+                    <a href="../math/">Math</a>
+                </li>
+            
+            
+            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    
+                        <li >
+                            <a href="../tml/">Torque Markup Language</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+            
+            </ul>
+
+            <!-- Search, Navigation and Repo links -->
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li >
+                    <a rel="next" href="..">
+                        <i class="fa fa-arrow-left"></i> Previous
+                    </a>
+                </li>
+                <li >
+                    <a rel="prev" href="../math/">
+                        Next <i class="fa fa-arrow-right"></i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/Vauxel/Unofficial-Blockland-Documentation">
+                        
+                            <i class="fa fa-github"></i>
+                        
+                        GitHub
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#strings">Strings</a></li>
+        
+            <li><a href="#parsing">Parsing</a></li>
+        
+            <li><a href="#processing">Processing</a></li>
+        
+            <li><a href="#words">Words</a></li>
+        
+            <li><a href="#fields">Fields</a></li>
+        
+    
+    </ul>
+</div></div>
+            <div class="col-md-9" role="main">
+
+<h1 id="strings">Strings</h1>
+<p><strong>A string is a sequence of characters (letters, numerical digits, punctuation marks, whitespace, and control characters).</strong></p>
+<h2 id="parsing">Parsing</h2>
+<hr />
+<h3 id="strcmp"><strong>strCmp</strong></h3>
+<p><em>Compares <strong>%one</strong> and <strong>%two</strong> in <a href="https://en.wikipedia.org/wiki/Lexicographical_order">lexicographical order</a> <u>with</u> case-sensitivity.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%one</strong>, string <strong>%two</strong></li>
+<li><code>Returns</code> - <code>0</code> if strings <strong>%one</strong> and <strong>%two</strong> are equal, <code>-1</code> if <strong>%one</strong> precedes <strong>%two</strong> lexicographically, and <code>1</code> if <strong>%one</strong> comes after <strong>%two</strong> lexicographically.</li>
+</ul>
+<pre><code class="csharp">==&gt; strCmp(&quot;Blockland&quot;, &quot;Blockland&quot;);
+0
+==&gt; strCmp(&quot;Blockland&quot;, &quot;Brickland&quot;); // 'l' &lt; 'r'
+-1
+==&gt; strCmp(&quot;Blockland&quot;, &quot;Badspot&quot;); // 'l' &gt; 'a'
+1
+</code></pre>
+
+<h3 id="stricmp"><strong>striCmp</strong></h3>
+<p><em>Functions the same way as <strong>strCmp</strong>, but instead compares <strong>%one</strong> and <strong>%two</strong> in <a href="https://en.wikipedia.org/wiki/Lexicographical_order">lexicographical order</a> <u>without</u> case-sensitivity.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%one</strong>, string <strong>%two</strong></li>
+<li><code>Returns</code> - <code>0</code> if strings <strong>%one</strong> and <strong>%two</strong> are equal, <code>-1</code> if <strong>%one</strong> precedes <strong>%two</strong> lexicographically, and <code>1</code> if <strong>%one</strong> comes after <strong>%two</strong> lexicographically.</li>
+</ul>
+<h3 id="strpos"><strong>strPos</strong></h3>
+<p><em>Searches for the position of the character(s) <strong>%needle</strong> in the string, <strong>%hay</strong>, <u>with</u> case-sensitivity.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%hay</strong>, string <strong>%needle</strong>, integer <strong>%offset</strong> <em>(optional)</em></li>
+<li><code>Returns</code> - The index of <strong>%needle</strong> in <strong>%hay</strong>, and <code>-1</code> if <strong>%needle</strong> could not be found in <strong>%hay</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; strPos(&quot;Test&quot;, &quot;t&quot;);
+3
+</code></pre>
+
+<h3 id="stripos"><strong>striPos</strong></h3>
+<p><em>Searches for the position of the character(s) <strong>%needle</strong> in the string, <strong>%hay</strong>, <u>without</u> case-sensitivity.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%hay</strong>, string <strong>%needle</strong>, integer <strong>%offset</strong> <em>(optional)</em></li>
+<li><code>Returns</code> - The index of <strong>%needle</strong> in <strong>%hay</strong>, and <code>-1</code> if <strong>%needle</strong> could not be found in <strong>%hay</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; striPos(&quot;Test&quot;, &quot;t&quot;);
+0
+</code></pre>
+
+<h3 id="strlen"><strong>strLen</strong></h3>
+<p><em>Counts the total number of characters in <strong>%string</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong></li>
+<li><code>Returns</code> - An integer representing the total number of characters in <strong>%string</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; strLen(&quot;Example&quot;);
+7
+</code></pre>
+
+<h3 id="getcharcount"><strong>getCharCount</strong></h3>
+<p><em>Counts the number of times the character <strong>%char</strong> appears in <strong>%string</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong>, char <strong>%char</strong></li>
+<li><code>Returns</code> - An integer representing the number of times <strong>%char</strong> was found in <strong>%string</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; getCharCount(&quot;example&quot;, &quot;e&quot;);
+2
+</code></pre>
+
+<h2 id="processing">Processing</h2>
+<hr />
+<h3 id="strchr"><strong>strChr</strong></h3>
+<p><em>Extracts the characters following the first instance of <strong>%char</strong> in <strong>%string</strong>, including the <strong>%char</strong> itself.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong>, char <strong>%char</strong></li>
+<li><code>Returns</code> - String containing the characters located at and after the first appearance of the <strong>%char</strong> given in <strong>%string</strong>.  If the <strong>%char</strong> specified could not be found in the <strong>%string</strong>, the whole string is returned un-modified.</li>
+</ul>
+<pre><code class="csharp">==&gt; strChr(&quot;Hello World!&quot;, &quot;W&quot;);
+&quot;World!&quot;
+</code></pre>
+
+<h3 id="getsubstr"><strong>getSubStr</strong></h3>
+<p><em>Extracts characters in <strong>%string</strong>, starting at the index, <strong>%start</strong>, and ending after <strong>%numChars</strong> have been read.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong>, integer <strong>%start</strong>, integer <strong>%numChars</strong></li>
+<li><code>Returns</code> - String containing the characters in <strong>%string</strong> located at and after <strong>%start</strong>, stopping after the amount specified in <strong>%numberChars</strong> have been read.</li>
+</ul>
+<pre><code class="csharp">==&gt; getSubStr(&quot;Hello World!&quot;, 0, 5);
+&quot;Hello&quot;
+</code></pre>
+
+<h3 id="strreplace"><strong>strReplace</strong></h3>
+<p><em>Replaces all instances of <strong>%from</strong> in <strong>%source</strong> with <strong>%to</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%source</strong>, string <strong>%from</strong>, string <strong>%to</strong></li>
+<li><code>Returns</code> - Copy of <strong>%string</strong> which has all of the characters in <strong>%from</strong> replaced by the characters in <strong>%to</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; strReplace(&quot;Blockhead built a town&quot;, &quot;town&quot;, &quot;castle&quot;);
+&quot;Blockhead built a castle&quot;
+</code></pre>
+
+<h3 id="stripchars"><strong>stripChars</strong></h3>
+<p><em>Removes all instances of <strong>%chars</strong> from <strong>%string</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong>, string <strong>%chars</strong></li>
+<li><code>Returns</code> - String containing all of the characters, except the ones from <strong>%chars</strong>, given in <strong>%string</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; stripChars(&quot;a1b2c3d4&quot;, &quot;1234&quot;);
+&quot;abcd&quot;
+</code></pre>
+
+<h3 id="stripmlcontrolchars"><strong>stripMLControlChars</strong></h3>
+<p><em>Removes all instances of <a href="../tml/">Torque Markup Language</a> characters from <strong>%string</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong></li>
+<li><code>Returns</code> - String containing all of the characters, except <a href="../tml/">TML</a> characters, given in <strong>%string</strong>.</li>
+</ul>
+<h3 id="striptrailingspaces"><strong>stripTrailingSpaces</strong></h3>
+<p><em>Removes all spaces following the last non-space character in <strong>%string</strong></em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong></li>
+<li><code>Returns</code> - <strong>%string</strong> with trailing spaces omitted.</li>
+</ul>
+<pre><code class="csharp">==&gt; stripTrailingSpaces(&quot;Blockland  &quot;);
+&quot;Blockland&quot;
+</code></pre>
+
+<h3 id="ltrim"><strong>ltrim</strong></h3>
+<p><em>Removes all whitespace located before the first non-whitespace character in <strong>%string</strong></em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong></li>
+<li><code>Returns</code> - <strong>%string</strong> with preceding whitespace omitted.</li>
+</ul>
+<pre><code class="csharp">==&gt; ltrim(&quot;    1234&quot;);
+&quot;1234&quot;
+</code></pre>
+
+<h3 id="rtrim"><strong>rtrim</strong></h3>
+<p><em>Removes all whitespace located after the last non-whitespace character in <strong>%string</strong></em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong></li>
+<li><code>Returns</code> - <strong>%string</strong> with trailing whitespace omitted.</li>
+</ul>
+<pre><code class="csharp">==&gt; rtrim(&quot;1234    &quot;);
+&quot;1234&quot;
+</code></pre>
+
+<h3 id="trim"><strong>trim</strong></h3>
+<p><em>Removes all whitespace located before and after the first and last non-whitespace character in <strong>%string</strong></em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong></li>
+<li><code>Returns</code> - <strong>%string</strong> with preceding and trailing whitespace omitted.</li>
+</ul>
+<pre><code class="csharp">==&gt; trim(&quot;    1234    &quot;);
+&quot;1234&quot;
+</code></pre>
+
+<h3 id="strurp"><strong>strUrp</strong></h3>
+<p><em>Converts all lowercase alphabetical characters in <strong>%string</strong> to their uppercase equivalents.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong></li>
+<li><code>Returns</code> - String containing all characters in <strong>%string</strong> converted to uppercase.</li>
+</ul>
+<pre><code class="csharp">==&gt; strUrp(&quot;the quick brown fox jumps over the lazy dog&quot;);
+&quot;THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG&quot;
+</code></pre>
+
+<h3 id="strlwr"><strong>strLwr</strong></h3>
+<p><em>Converts all uppercase alphabetical characters in <strong>%string</strong> to their lowercase equivalents.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%string</strong></li>
+<li><code>Returns</code> - String containing all characters in <strong>%string</strong> converted to lowercase.</li>
+</ul>
+<pre><code class="csharp">==&gt; strLwr(&quot;THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG&quot;);
+&quot;the quick brown fox jumps over the lazy dog&quot;
+</code></pre>
+
+<h3 id="expandescape"><strong>expandEscape</strong></h3>
+<p><em>Adds another escape level to escape characters.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong></li>
+<li><code>Returns</code> - String containing all the characters in <strong>%text</strong>, with the escaped characters being further escaped.</li>
+</ul>
+<pre><code class="csharp">==&gt; expandEscape(&quot;Test\n&quot;);
+&quot;Test\\n&quot;
+</code></pre>
+
+<h3 id="collapseescape"><strong>collapseEscape</strong></h3>
+<p><em>Removes an escape level from the escaped escape characters.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong></li>
+<li><code>Returns</code> - String containing all the characters in <strong>%text</strong>, with the escaped characters being unescaped one level.</li>
+</ul>
+<pre><code class="csharp">==&gt; collapseEscape(&quot;Test\\n&quot;);
+&quot;Test\n&quot;
+</code></pre>
+
+<h3 id="detag"><strong>deTag</strong></h3>
+<p><em>Converts a tagged string to a normal string.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%tagged</strong></li>
+<li><code>Returns</code> - String containing the untagged conversion of <strong>%tagged</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; deTag('leet');
+&quot;leet&quot;
+</code></pre>
+
+<p><em>Note: You can only detag a string that has already been transmitted to you.</em></p>
+<h3 id="gettag"><strong>getTag</strong></h3>
+<p><em>Gets the tagged number associated with a tagged string</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%tagged</strong></li>
+<li><code>Returns</code> - Integer representing the tagged string, <strong>%tagged</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; getTag('leet');
+&lt;somenumber&gt;
+</code></pre>
+
+<h2 id="words">Words</h2>
+<hr />
+<h3 id="getwordcount"><strong>getWordCount</strong></h3>
+<p><em>Counts the number of words that appear in the string <strong>%text</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong></li>
+<li><code>Returns</code> - An integer representing the number of words in <strong>%string</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; getWordCount(&quot;Hello World&quot;);
+2
+</code></pre>
+
+<h3 id="getword"><strong>getWord</strong></h3>
+<p><em>Captures the word in <strong>%string</strong> located at the integer index <strong>%index</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong>, integer <strong>%index</strong></li>
+<li><code>Returns</code> - String containing the characters of the word found at <strong>%index</strong> in <strong>%string</strong>.  Returns an empty string if a word could not be found at the specified <strong>%index</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; getWord(&quot;Hello World&quot;, 0);
+&quot;Hello&quot;
+</code></pre>
+
+<h3 id="getwords"><strong>getWords</strong></h3>
+<p><em>Captures the word(s) in <strong>%string</strong> located at the integer index <strong>%index</strong>, and optionally ending at the integer index <strong>%endIndex</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong>, integer <strong>%index</strong>, integer <strong>%endIndex</strong></li>
+<li><code>Returns</code> - String containing the characters of the word(s) found at and between <strong>%index</strong> and <strong>%endIndex</strong> in <strong>%string</strong>.  Returns an empty string if a word/words could not be found at the <strong>%index</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; getWords(&quot;Hello World, how are you?&quot;, 2, 4);
+&quot;how are you?&quot;
+</code></pre>
+
+<h3 id="setword"><strong>setWord</strong></h3>
+<p><em>Replaces the word in <strong>%string</strong> located at the integer index <strong>%index</strong> with the string, <strong>%replace</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong>, integer <strong>%index</strong>, string <strong>%replace</strong></li>
+<li><code>Returns</code> - A replica of <strong>%string</strong> with the word at <strong>index</strong> replaced with the string, <strong>%replace</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; setWord(&quot;Hello World&quot;, &quot;Hello&quot;, &quot;Hey&quot;);
+&quot;Hey World&quot;
+</code></pre>
+
+<h3 id="removeword"><strong>removeWord</strong></h3>
+<p><em>Removes the word in <strong>%string</strong> located at the integer index <strong>%index</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong>, integer <strong>%index</strong></li>
+<li><code>Returns</code> - A replica of <strong>%string</strong> with the word at <strong>index</strong> removed.</li>
+</ul>
+<pre><code class="csharp">==&gt; removeWord(&quot;Hello World&quot;, &quot;Hello&quot;);
+&quot;World&quot;
+</code></pre>
+
+<h3 id="firstword"><strong>firstWord</strong></h3>
+<p><em>Captures the first word that appears in <strong>%text</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong></li>
+<li><code>Returns</code> - String containing the characters of the first word found in <strong>%text</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; firstWord(&quot;Hello World&quot;);
+&quot;Hello&quot;
+</code></pre>
+
+<h3 id="restwords"><strong>restWords</strong></h3>
+<p><em>Captures every word in <strong>%text</strong> except the first.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong></li>
+<li><code>Returns</code> - String containing the characters of the word(s) found after the first word in <strong>%string</strong>.  Returns an empty string if there are not any words after the first.</li>
+</ul>
+<pre><code class="csharp">==&gt; restWords(&quot;Hello World, how are you?&quot;);
+&quot;World, how are you?&quot;
+</code></pre>
+
+<h2 id="fields">Fields</h2>
+<hr />
+<p><em>'^' characters represent field delimiters.</em></p>
+<h3 id="getfieldcount"><strong>getFieldCount</strong></h3>
+<p><em>Counts the number of fields that appear in the string <strong>%text</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong></li>
+<li><code>Returns</code> - An integer representing the number of fields in <strong>%string</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; getFieldCount(&quot;Foo^Bar&quot;);
+2
+</code></pre>
+
+<h3 id="getfield"><strong>getField</strong></h3>
+<p><em>Captures the field in <strong>%string</strong> located at the integer index <strong>%index</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong>, integer <strong>%index</strong></li>
+<li><code>Returns</code> - String containing the characters of the field found at <strong>%index</strong> in <strong>%string</strong>.  Returns an empty string if a field could not be found at the specified <strong>%index</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; getField(&quot;Foo^Bar&quot;, 0);
+&quot;Foo&quot;
+</code></pre>
+
+<h3 id="getfields"><strong>getFields</strong></h3>
+<p><em>Captures the field(s) in <strong>%string</strong> located at the integer index <strong>%index</strong>, and optionally ending at the integer index <strong>%endIndex</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong>, integer <strong>%index</strong>, integer <strong>%endIndex</strong></li>
+<li><code>Returns</code> - String containing the characters of the field(s) found at and between <strong>%index</strong> and <strong>%endIndex</strong> in <strong>%string</strong>.  Returns an empty string if a field/fields could not be found at the <strong>%index</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; getFields(&quot;Foo^Bar^Baz^Qux&quot;, 2, 3);
+&quot;Baz^Qux&quot;
+</code></pre>
+
+<h3 id="setfield"><strong>setField</strong></h3>
+<p><em>Replaces the field in <strong>%string</strong> located at the integer index <strong>%index</strong> with the string, <strong>%replace</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong>, integer <strong>%index</strong>, string <strong>%replace</strong></li>
+<li><code>Returns</code> - A replica of <strong>%string</strong> with the field at <strong>index</strong> replaced with the string, <strong>%replace</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; setField(&quot;Foo^Bar^Baz^Qux&quot;, 0, &quot;Hello&quot;);
+&quot;Hello^Foo^Baz^Qux&quot;
+</code></pre>
+
+<h3 id="removefield"><strong>removeField</strong></h3>
+<p><em>Removes the field in <strong>%string</strong> located at the integer index <strong>%index</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong>, integer <strong>%index</strong></li>
+<li><code>Returns</code> - A replica of <strong>%string</strong> with the field at <strong>index</strong> removed.</li>
+</ul>
+<pre><code class="csharp">==&gt; removeField(&quot;Foo^Bar^Baz^Qux&quot;, 3);
+&quot;Foo^Bar^Baz&quot;
+</code></pre>
+
+<h3 id="firstfield"><strong>firstField</strong></h3>
+<p><em>Captures the first field that appears in <strong>%text</strong>.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong></li>
+<li><code>Returns</code> - String containing the characters of the first field found in <strong>%text</strong>.</li>
+</ul>
+<pre><code class="csharp">==&gt; firstField(&quot;Foo^Bar^Baz^Qux&quot;);
+&quot;Foo&quot;
+</code></pre>
+
+<h3 id="restfields"><strong>restFields</strong></h3>
+<p><em>Captures every field in <strong>%text</strong> except the first.</em></p>
+<ul>
+<li><code>Parameters</code> - string <strong>%text</strong></li>
+<li><code>Returns</code> - String containing the characters of the field(s) found after the first field in <strong>%string</strong>.  Returns an empty string if there are not any fields after the first.</li>
+</ul>
+<pre><code class="csharp">==&gt; restFields(&quot;Foo^Bar^Baz^Qux&quot;);
+&quot;Bar^Baz^Qux&quot;
+</code></pre></div>
+        </div>
+
+        
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script src="../js/base.js"></script>
+    </body>
+</html>
